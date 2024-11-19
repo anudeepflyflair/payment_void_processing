@@ -53,7 +53,7 @@ resource "aws_iam_policy" "process_void_policy" {
           "logs:PutLogEvents"
         ],
         Resource = "*"
-      }
+      },
       # Lambda VPC Permissions
       {
         Effect = "Allow"

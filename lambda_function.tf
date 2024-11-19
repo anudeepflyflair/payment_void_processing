@@ -12,6 +12,11 @@ resource "aws_lambda_function" "retrieve_ledger_entries_void" {
     }
   }
 
+    vpc_config {
+    subnet_ids         = [data.aws_subnet.private_subnet.id]
+    security_group_ids = [data.aws_security_group.private_sg.id]
+  }
+
   # Add dependencies for proper ordering
   depends_on = [
     data.aws_dynamodb_table.transactions_table
@@ -30,6 +35,11 @@ resource "aws_lambda_function" "persist_payment_ledger_void" {
     variables = {
       TRANSACTIONS_TABLE = data.aws_dynamodb_table.transactions_table.name
     }
+  }
+
+  vpc_config {
+    subnet_ids         = [data.aws_subnet.private_subnet.id]
+    security_group_ids = [data.aws_security_group.private_sg.id]
   }
 
   # Add dependencies for proper ordering
@@ -51,6 +61,11 @@ resource "aws_lambda_function" "persist_audit_trail_void" {
       AUDIT_TRAIL_TABLE = data.aws_dynamodb_table.audit_trail_table.name,
       FIFO_QUEUE_URL    = aws_sqs_queue.audit_trail_fifo_queue.id # Optional for SQS FIFO integration
     }
+  }
+
+  vpc_config {
+    subnet_ids         = [data.aws_subnet.private_subnet.id]
+    security_group_ids = [data.aws_security_group.private_sg.id]
   }
 
   # Add dependencies for proper ordering

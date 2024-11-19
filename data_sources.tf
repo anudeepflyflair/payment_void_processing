@@ -18,11 +18,3 @@ data "aws_security_group" "private_sg" {
   }
 }
 
-data "aws_dynamodb_table" "transactions_table" {
-  name = "Payment-Ledger"
-}
-
-data "aws_dynamodb_table" "audit_trail_table" {
-  name = "Payment-AuditTrail"
-}
-

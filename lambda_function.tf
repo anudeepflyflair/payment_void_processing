@@ -8,7 +8,7 @@ resource "aws_lambda_function" "retrieve_ledger_entries_void" {
 
   environment {
     variables = {
-      TRANSACTIONS_TABLE = data.aws_dynamodb_table.transactions_table.name
+      TRANSACTIONS_TABLE = aws_dynamodb_table.transactions_table.name
     }
   }
 
@@ -19,7 +19,7 @@ resource "aws_lambda_function" "retrieve_ledger_entries_void" {
 
   # Add dependencies for proper ordering
   depends_on = [
-    data.aws_dynamodb_table.transactions_table
+    aws_dynamodb_table.transactions_table
   ]
 }
 
@@ -33,7 +33,7 @@ resource "aws_lambda_function" "persist_payment_ledger_void" {
 
   environment {
     variables = {
-      TRANSACTIONS_TABLE = data.aws_dynamodb_table.transactions_table.name
+      TRANSACTIONS_TABLE = aws_dynamodb_table.transactions_table.name
     }
   }
 
@@ -44,7 +44,7 @@ resource "aws_lambda_function" "persist_payment_ledger_void" {
 
   # Add dependencies for proper ordering
   depends_on = [
-    data.aws_dynamodb_table.transactions_table
+    aws_dynamodb_table.transactions_table
   ]
 }
 
@@ -58,7 +58,7 @@ resource "aws_lambda_function" "persist_audit_trail_void" {
 
   environment {
     variables = {
-      AUDIT_TRAIL_TABLE = data.aws_dynamodb_table.audit_trail_table.name,
+      AUDIT_TRAIL_TABLE = aws_dynamodb_table.audit_trail_table.name,
       FIFO_QUEUE_URL    = aws_sqs_queue.audit_trail_fifo_queue.id # Optional for SQS FIFO integration
     }
   }
@@ -70,7 +70,7 @@ resource "aws_lambda_function" "persist_audit_trail_void" {
 
   # Add dependencies for proper ordering
   depends_on = [
-    data.aws_dynamodb_table.audit_trail_table,
+    aws_dynamodb_table.audit_trail_table,
     aws_sqs_queue.audit_trail_fifo_queue
   ]
 }

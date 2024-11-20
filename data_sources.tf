@@ -17,4 +17,11 @@ data "aws_security_group" "private_sg" {
     values = ["audit-infra-DynamoDBEndpointSG"] # Replace with the tag of your Lambda security group
   }
 }
+  
+data "aws_dynamodb_table" "transactions_table" {
+  name = var.transactions_table_name
+}
 
+data "aws_dynamodb_table" "audit_trail_table" {
+  name = var.audit_trail_table_name
+}

@@ -1,53 +1,28 @@
 # Outputs for DynamoDB Tables
 output "transactions_table_name" {
   description = "Name of the DynamoDB Transactions Table"
-  value       = aws_dynamodb_table.transactions_table.name
+  value       = data.aws_dynamodb_table.transactions_table.name
 }
 
 output "audit_trail_table_name" {
   description = "Name of the DynamoDB Audit Trail Table"
-  value       = aws_dynamodb_table.audit_trail_table.name
+  value       = data.aws_dynamodb_table.audit_trail_table.name
 }
 
 output "transactions_table_arn" {
   description = "ARN of the DynamoDB Transactions Table"
-  value       = aws_dynamodb_table.transactions_table.arn
+  value       = data.aws_dynamodb_table.transactions_table.arn
 }
 
 output "audit_trail_table_arn" {
   description = "ARN of the DynamoDB Audit Trail Table"
-  value       = aws_dynamodb_table.audit_trail_table.arn
+  value       = data.aws_dynamodb_table.audit_trail_table.arn
 }
 
 # Outputs for Lambda Functions
-output "retrieve_ledger_entries_function_arn" {
-  description = "ARN of the RetrieveLedgerEntries Lambda function"
-  value       = aws_lambda_function.retrieve_ledger_entries_void.arn
-}
-
-output "persist_payment_ledger_function_arn" {
-  description = "ARN of the PersistPaymentLedger Lambda function"
-  value       = aws_lambda_function.persist_payment_ledger_void.arn
-}
-
-output "persist_audit_trail_function_arn" {
-  description = "ARN of the PersistAuditTrail Lambda function"
-  value       = aws_lambda_function.persist_audit_trail_void.arn
-}
-
-output "retrieve_ledger_entries_function_name" {
-  description = "Name of the RetrieveLedgerEntries Lambda function"
-  value       = aws_lambda_function.retrieve_ledger_entries_void.function_name
-}
-
-output "persist_payment_ledger_function_name" {
-  description = "Name of the PersistPaymentLedger Lambda function"
-  value       = aws_lambda_function.persist_payment_ledger_void.function_name
-}
-
-output "persist_audit_trail_function_name" {
-  description = "Name of the PersistAuditTrail Lambda function"
-  value       = aws_lambda_function.persist_audit_trail_void.function_name
+output "process_void_lambda_function_name" {
+  description = "Name of the Lambda function for processing void transactions"
+  value       = aws_lambda_function.process_void_transaction.function_name
 }
 
 # Outputs for IAM Role
